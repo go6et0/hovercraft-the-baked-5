@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Hovercraft design visualization</title><desc id="desc">Technical blueprint placeholder for the design phase</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071d2b"/><stop offset="1" stop-color="#0b5363"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="800" height="600" fill="url(#bg)"/><g stroke="#36e6ff" fill="none" opacity=".22"><path d="M0 100h800M0 200h800M0 300h800M0 400h800M0 500h800M100 0v600M200 0v600M300 0v600M400 0v600M500 0v600M600 0v600M700 0v600"/><circle cx="400" cy="285" r="210"/></g>
+  <g stroke="#76f2ff" stroke-width="5" fill="#19cce018" filter="url(#glow)"><path d="M205 345Q220 230 400 205Q580 230 595 345L540 395H260Z"/><path d="M300 300Q330 230 455 245L510 320Z"/><circle cx="525" cy="230" r="72"/><path d="M525 175v110M470 230h110"/></g>
+  <text x="50%" y="510" text-anchor="middle" fill="#e9fdff" font-family="system-ui" font-size="34" font-weight="700">DESIGN PHASE</text><text x="50%" y="550" text-anchor="middle" fill="#76f2ff" font-family="system-ui" font-size="19" letter-spacing="4">CONCEPT VISUALIZATION</text>
+</svg>

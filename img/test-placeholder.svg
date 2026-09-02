@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Hovercraft testing visualization</title><desc id="desc">Data visualization placeholder for the testing phase</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071a15"/><stop offset="1" stop-color="#0c614c"/></linearGradient></defs><rect width="800" height="600" fill="url(#bg)"/>
+  <g stroke="#52f4bf" fill="none"><path opacity=".22" d="M0 120h800M0 240h800M0 360h800M0 480h800"/><path stroke-width="7" d="M150 370Q180 265 390 240Q600 265 630 370L565 415H220Z"/><path stroke-width="5" d="M80 380l90-25M630 355l100-25M95 420h120M590 420h120"/><circle cx="560" cy="225" r="68" stroke-width="7"/><path d="M560 157v136M492 225h136" stroke-width="5"/></g>
+  <text x="50%" y="510" text-anchor="middle" fill="#effff9" font-family="system-ui" font-size="34" font-weight="700">TESTING PHASE</text><text x="50%" y="550" text-anchor="middle" fill="#76f7c9" font-family="system-ui" font-size="19" letter-spacing="4">SYSTEM ANALYSIS</text>
+</svg>

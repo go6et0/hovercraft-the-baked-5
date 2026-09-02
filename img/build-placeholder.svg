@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Hovercraft construction visualization</title><desc id="desc">Workshop placeholder for the building phase</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#21150b"/><stop offset="1" stop-color="#744019"/></linearGradient></defs><rect width="800" height="600" fill="url(#bg)"/>
+  <g fill="none" stroke="#f4a64b" stroke-width="7"><path d="M165 365Q190 260 400 235Q610 260 635 365L570 420H230Z"/><path d="M260 335h290M315 280l-45 140M480 260l65 150"/><circle cx="565" cy="225" r="70"/><path d="M565 155v140M495 225h140"/></g><g fill="#ffd099"><circle cx="150" cy="150" r="12"/><circle cx="650" cy="130" r="8"/><path d="M100 460h600v5H100z"/></g>
+  <text x="50%" y="510" text-anchor="middle" fill="#fff7ed" font-family="system-ui" font-size="34" font-weight="700">BUILDING PHASE</text><text x="50%" y="550" text-anchor="middle" fill="#ffd099" font-family="system-ui" font-size="19" letter-spacing="4">ASSEMBLY IN PROGRESS</text>
+</svg>

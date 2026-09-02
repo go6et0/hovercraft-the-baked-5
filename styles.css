@@ -326,6 +326,163 @@ iframe {
     color: var(--text-light);
 }
 
+/* Interactive Hologram */
+.hologram-section {
+    position: relative;
+    padding: 6rem 0;
+    overflow: hidden;
+    color: #eaffff;
+    background:
+        radial-gradient(circle at 72% 50%, rgba(23, 207, 224, 0.16), transparent 32%),
+        linear-gradient(135deg, #061018 0%, #071f2b 52%, #08151d 100%);
+}
+
+.hologram-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    background-image:
+        linear-gradient(rgba(80, 230, 244, 0.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(80, 230, 244, 0.35) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+}
+
+.hologram-layout {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+}
+
+.hologram-copy {
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    color: #5ceaff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.hologram-copy h2 {
+    margin-bottom: 1.25rem;
+    color: #f0feff;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.05;
+    text-shadow: 0 0 28px rgba(54, 230, 255, 0.3);
+}
+
+.hologram-copy p {
+    max-width: 42rem;
+    color: #b6ced3;
+    font-size: 1.08rem;
+}
+
+.hologram-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid rgba(74, 231, 249, 0.35);
+    border-radius: 999px;
+    color: #d9fbff;
+    background: rgba(7, 38, 48, 0.7);
+    font-size: 0.88rem;
+    backdrop-filter: blur(10px);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #55f7b0;
+    box-shadow: 0 0 14px #55f7b0;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.hologram-stage {
+    position: relative;
+    min-height: 500px;
+    border: 1px solid rgba(70, 229, 246, 0.3);
+    border-radius: 24px;
+    overflow: hidden;
+    isolation: isolate;
+    background: radial-gradient(circle at center, rgba(22, 144, 161, 0.14), rgba(2, 14, 21, 0.72) 68%);
+    box-shadow: inset 0 0 60px rgba(27, 193, 214, 0.08), 0 30px 70px rgba(0, 0, 0, 0.32);
+}
+
+#hovercraftCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+}
+
+#hovercraftCanvas:active {
+    cursor: grabbing;
+}
+
+.hologram-scan {
+    position: absolute;
+    z-index: 2;
+    inset: -30% 0 auto;
+    height: 22%;
+    pointer-events: none;
+    background: linear-gradient(transparent, rgba(105, 241, 255, 0.09), rgba(105, 241, 255, 0.45), transparent);
+    animation: hologramScan 5s linear infinite;
+}
+
+.hologram-loading {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #76efff;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.35s;
+}
+
+.hologram-loading.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hologram-controls {
+    position: absolute;
+    z-index: 3;
+    right: 18px;
+    bottom: 16px;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid rgba(78, 229, 246, 0.28);
+    border-radius: 8px;
+    color: #a9dce3;
+    background: rgba(3, 20, 28, 0.72);
+    font-size: 0.76rem;
+    backdrop-filter: blur(8px);
+}
+
+@keyframes hologramScan {
+    to { transform: translateY(750%); }
+}
+
+@keyframes statusPulse {
+    50% { opacity: 0.45; transform: scale(0.8); }
+}
+
 /* Gallery Section */
 .gallery {
     padding: 6rem 0;
@@ -833,6 +990,21 @@ iframe {
     .team-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .hologram-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .hologram-copy {
+        max-width: 700px;
+        text-align: center;
+        margin-inline: auto;
+    }
+
+    .hologram-copy p {
+        margin-inline: auto;
+    }
 }
 
 @media (max-width: 768px) {
@@ -952,8 +1124,14 @@ iframe {
     .gallery,
     .team,
     .contact,
-    .videos {
+    .videos,
+    .hologram-section {
         padding-block: 4rem;
+    }
+
+    .hologram-stage {
+        min-height: clamp(360px, 70vw, 480px);
+        border-radius: 18px;
     }
 
     .about h2,
@@ -1085,6 +1263,15 @@ iframe {
         right: 12px;
         width: 44px;
         height: 44px;
+    }
+
+    .hologram-stage {
+        min-height: 340px;
+    }
+
+    .hologram-controls {
+        right: 10px;
+        bottom: 10px;
     }
 }
 
