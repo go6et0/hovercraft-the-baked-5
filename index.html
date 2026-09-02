@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Team THE BAKED presents the design, development, and testing of its university flying engineering project.">
+    <title>Mini Hovercraft Project - Team THE BAKED</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo" aria-label="Team THE BAKED">
+                <span>THE BAKED</span>
+            </div>
+            <ul class="nav-menu" id="primary-navigation">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Project</a></li>
+                <li><a href="#hologram">3D Model</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="hamburger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Flying Project</h1>
+                <p>Engineering excellence by <span class="highlight">Team THE BAKED</span></p>
+                <button class="cta-button" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+                    Learn More <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            <div class="hero-image">
+                <img src="logo-the-baked.png" alt="The Baked Logo" class="hero-logo">
+            </div>
+        </div>
+        <div class="hero-background"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About the Flying Project</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Project Overview</h3>
+                    <p>Our flying project is an advanced engineering challenge combining aerodynamics, materials science, and mechanical design. Team THE BAKED has developed a lightweight, efficient flying machine capable of competing in university engineering competitions. The project demonstrates our team's ability to design, build, test, and optimize complex mechanical systems.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>Aerodynamic Design</h4>
+                            <p>Optimized for speed and stability</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>Lightweight Structure</h4>
+                            <p>Advanced materials for minimal weight</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>High Efficiency</h4>
+                            <p>Maximum speed with minimum power</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>500+</h3>
+                        <p>Design Hours</p>
+                    </div>
+                    <div class="stat">
+                        <h3>8+</h3>
+                        <p>Technologies Used</p>
+                    </div>
+                    <div class="stat">
+                        <h3>45 km/h</h3>
+                        <p>Max Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Hologram Section -->
+    <section id="hologram" class="hologram-section" aria-labelledby="hologram-title">
+        <div class="container hologram-layout">
+            <div class="hologram-copy">
+                <span class="eyebrow">Interactive prototype</span>
+                <h2 id="hologram-title">Hovercraft Hologram</h2>
+                <p>Explore a real-time concept model of our hovercraft. Drag to rotate, scroll to zoom, or use touch gestures on mobile.</p>
+                <div class="hologram-status" aria-label="Model status">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span>3D visualization online</span>
+                </div>
+            </div>
+            <div class="hologram-stage" id="hologramStage">
+                <div class="hologram-scan" aria-hidden="true"></div>
+                <div class="hologram-loading" id="hologramLoading" role="status">Initializing 3D model...</div>
+                <canvas id="hovercraftCanvas" aria-label="Interactive three-dimensional hovercraft model"></canvas>
+                <div class="hologram-controls" aria-hidden="true">
+                    <i class="fas fa-rotate"></i> Drag to rotate
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Progress Section - Expandable Phases -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Project Progress</h2>
+            <p class="section-subtitle">From concept to completion</p>
+
+            <!-- Design Phase -->
+            <div class="progress-phase">
+                <div class="phase-header" role="button" tabindex="0" aria-expanded="false" onclick="togglePhase(this)" onkeydown="handlePhaseKeydown(event, this)">
+                    <h3><i class="fas fa-chevron-right"></i> Phase 1: Design</h3>
+                </div>
+                <div class="phase-content" style="display: none;" aria-hidden="true">
+                    <div class="phase-description">
+                        <h4>Design Process</h4>
+                        <p>During the design phase, our team conducted extensive research and analysis to create optimal aerodynamic solutions. We used CAD software to model various hovercraft configurations, performed aerodynamic simulations, and tested different material combinations. The design focused on minimizing weight while maximizing stability and speed.</p>
+                    </div>
+                    <div class="phase-gallery">
+                        <div class="gallery-item" onclick="openModal('img/design-1.jpg')">
+                            <img src="img/design-1.jpg" alt="Design 1 - Team Presentation">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/design-2.jpg')">
+                            <img src="img/design-2.jpg" alt="Design 2 - Prototype">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/design-3.jpg')">
+                            <img src="img/design-3.jpg" alt="Design 3 - Blueprint">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/design-4.jpg')">
+                            <img src="img/design-4.jpg" alt="Design 4 - Team Working">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                    </div>
+                    <div class="phase-video">
+                        <div class="video-item">
+                            <div class="video-container">
+                                <iframe title="Design overview video" loading="lazy" srcdoc="<style>body{margin:0;display:grid;place-items:center;height:100vh;background:#241b13;color:#f5e6d3;font:600 18px system-ui;text-align:center}p{padding:24px}</style><p>Design overview video coming soon</p>"></iframe>
+                            </div>
+                            <h4>Design Overview & Simulation</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Building Phase -->
+            <div class="progress-phase">
+                <div class="phase-header" role="button" tabindex="0" aria-expanded="false" onclick="togglePhase(this)" onkeydown="handlePhaseKeydown(event, this)">
+                    <h3><i class="fas fa-chevron-right"></i> Phase 2: Building</h3>
+                </div>
+                <div class="phase-content" style="display: none;" aria-hidden="true">
+                    <div class="phase-description">
+                        <h4>Construction & Assembly</h4>
+                        <p>The building phase involved precise fabrication of all components using advanced materials and manufacturing techniques. Our team worked on creating the hull structure, installing the propulsion system, mounting the control electronics, and assembling the skirt system. Each component was carefully crafted to meet exact specifications and weight requirements.</p>
+                    </div>
+                    <div class="phase-gallery">
+                        <div class="gallery-item" onclick="openModal('img/build-1.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Hull+Fabrication" alt="Building 1">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/build-2.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Assembly+Process" alt="Building 2">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/build-3.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Propulsion+Install" alt="Building 3">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/build-4.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Final+Assembly" alt="Building 4">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                    </div>
+                    <div class="phase-video">
+                        <div class="video-item">
+                            <div class="video-container">
+                                <iframe title="Construction timelapse video" loading="lazy" srcdoc="<style>body{margin:0;display:grid;place-items:center;height:100vh;background:#241b13;color:#f5e6d3;font:600 18px system-ui;text-align:center}p{padding:24px}</style><p>Construction timelapse coming soon</p>"></iframe>
+                            </div>
+                            <h4>Construction Timelapse</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testing Phase -->
+            <div class="progress-phase">
+                <div class="phase-header" role="button" tabindex="0" aria-expanded="false" onclick="togglePhase(this)" onkeydown="handlePhaseKeydown(event, this)">
+                    <h3><i class="fas fa-chevron-right"></i> Phase 3: Testing</h3>
+                </div>
+                <div class="phase-content" style="display: none;" aria-hidden="true">
+                    <div class="phase-description">
+                        <h4>Testing & Optimization</h4>
+                        <p>Comprehensive testing was performed to validate all systems and optimize performance. We conducted wind tunnel tests to verify aerodynamic efficiency, track testing to measure speed and acceleration, and stability tests to ensure safe operation. Each test provided valuable data that led to further refinements and improvements to our design.</p>
+                    </div>
+                    <div class="phase-gallery">
+                        <div class="gallery-item" onclick="openModal('img/test-1.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Wind+Tunnel+Test" alt="Testing 1">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/test-2.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Track+Testing" alt="Testing 2">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/test-3.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Stability+Test" alt="Testing 3">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/test-4.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Performance+Analysis" alt="Testing 4">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                    </div>
+                    <div class="phase-video">
+                        <div class="video-item">
+                            <div class="video-container">
+                                <iframe title="Testing results video" loading="lazy" srcdoc="<style>body{margin:0;display:grid;place-items:center;height:100vh;background:#241b13;color:#f5e6d3;font:600 18px system-ui;text-align:center}p{padding:24px}</style><p>Testing results video coming soon</p>"></iframe>
+                            </div>
+                            <h4>Testing Results & Analysis</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Product Phase -->
+            <div class="progress-phase">
+                <div class="phase-header" role="button" tabindex="0" aria-expanded="false" onclick="togglePhase(this)" onkeydown="handlePhaseKeydown(event, this)">
+                    <h3><i class="fas fa-chevron-right"></i> Phase 4: Final Product</h3>
+                </div>
+                <div class="phase-content" style="display: none;" aria-hidden="true">
+                    <div class="phase-description">
+                        <h4>Finished Product & Competition</h4>
+                        <p>The final hovercraft represents the culmination of months of design, engineering, and testing. Our team successfully brought all components together to create a high-performance machine capable of competing at the highest level. The finished product demonstrates innovation, precision engineering, and flawless execution. We are proud to present our hovercraft and its competition results.</p>
+                    </div>
+                    <div class="phase-gallery">
+                        <div class="gallery-item" onclick="openModal('img/final-1.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Final+Hovercraft" alt="Final 1">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/final-2.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Side+View" alt="Final 2">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/final-3.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Competition" alt="Final 3">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                        <div class="gallery-item" onclick="openModal('img/final-4.jpg')">
+                            <img src="https://via.placeholder.com/300x250?text=Award" alt="Final 4">
+                            <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                        </div>
+                    </div>
+                    <div class="phase-video">
+                        <div class="video-item">
+                            <div class="video-container">
+                                <iframe title="Final demonstration video" loading="lazy" srcdoc="<style>body{margin:0;display:grid;place-items:center;height:100vh;background:#241b13;color:#f5e6d3;font:600 18px system-ui;text-align:center}p{padding:24px}</style><p>Final demonstration video coming soon</p>"></iframe>
+                            </div>
+                            <h4>Final Demonstration & Results</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2>Team THE BAKED</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3>Jonathan Chang</h3>
+                    <p>Production Engineer</p>
+                </div>
+                <div class="team-member">
+                    <h3>Bogdan Cazacu</h3>
+                    <p>Quality Engineer</p>
+                </div>
+                <div class="team-member">
+                    <h3>Edwin Wang</h3>
+                    <p>Project Engineer</p>
+                </div>
+                <div class="team-member">
+                    <h3>Alicia Queiros</h3>
+                    <p>Lead PR</p>
+                </div>
+                <div class="team-member">
+                    <h3>Georgi Genchev</h3>
+                    <p>Test Engineer</p>
+                </div>
+                <div class="team-member">
+                    <h3>Dimitar Kabasanov</h3>
+                    <p>Lead Engineer</p>
+                </div>
+                <div class="team-member">
+                    <h3>Vasil Deshev</h3>
+                    <p>Design Engineer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form class="contact-form" onsubmit="handleFormSubmit(event)" novalidate>
+                <div class="form-group">
+                    <label class="sr-only" for="contact-name">Your name</label>
+                    <input id="contact-name" name="name" type="text" placeholder="Your Name" autocomplete="name" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="contact-email">Your email</label>
+                    <input id="contact-email" name="email" type="email" placeholder="Your Email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="contact-message">Your message</label>
+                    <textarea id="contact-message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="currentYear">2026</span> Flying Project - Team THE BAKED. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#about">Project</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Gallery -->
+    <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-label="Image preview" aria-hidden="true">
+        <button class="close" type="button" onclick="closeModal()" aria-label="Close image preview">&times;</button>
+        <img class="modal-content" id="modalImage" alt="Expanded project image">
+    </div>
+
+    <script src="script.js"></script>
+    <script type="module" src="hologram.js"></script>
+</body>
+</html>
