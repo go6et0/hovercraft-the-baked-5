@@ -103,42 +103,6 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// Form Submission
-function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-    
-    // Show success message
-    const successMessage = document.createElement('div');
-    successMessage.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #10b981;
-        color: white;
-        padding: 1.5rem 2rem;
-        border-radius: 8px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        z-index: 3000;
-        animation: slideIn 0.3s ease-out;
-    `;
-    successMessage.textContent = 'Thank you! Your message has been received.';
-    document.body.appendChild(successMessage);
-    
-    // Clear form
-    form.reset();
-    
-    // Remove message after 3 seconds
-    setTimeout(() => {
-        successMessage.remove();
-    }, 3000);
-}
-
 // Smooth scroll offset for fixed navbar
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

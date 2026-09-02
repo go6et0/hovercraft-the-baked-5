@@ -806,67 +806,6 @@ iframe {
     transform: scale(1.1);
 }
 
-/* Contact Section */
-.contact {
-    padding: 6rem 0;
-    background-color: var(--bg-light);
-}
-
-.contact h2 {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    text-align: center;
-    color: var(--primary);
-}
-
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--white);
-    padding: 3rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-lg);
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--accent);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.submit-btn:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-2px);
-}
-
 /* Modal */
 .modal {
     display: none;
@@ -1138,7 +1077,6 @@ iframe {
     .about,
     .gallery,
     .team,
-    .contact,
     .videos,
     .hologram-section {
         padding-block: 4rem;
@@ -1151,8 +1089,7 @@ iframe {
 
     .about h2,
     .gallery h2,
-    .team h2,
-    .contact h2 {
+    .team h2 {
         margin-bottom: 2rem;
     }
 
@@ -1184,10 +1121,6 @@ iframe {
 
     .phase-content {
         padding: 1rem;
-    }
-
-    .contact-form {
-        padding: 2rem;
     }
 
     .footer-links {
@@ -1258,10 +1191,6 @@ iframe {
 
     .phase-description {
         padding: 1rem;
-    }
-
-    .contact-form {
-        padding: 1.25rem;
     }
 
     .footer .container {
