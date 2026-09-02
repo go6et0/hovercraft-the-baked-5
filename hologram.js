@@ -104,26 +104,23 @@ if (stage && canvas) {
         const lowerDeck = addHologramMesh(new RoundedBoxGeometry(5.1, 0.3, 3.22, 5, 0.27), solidMaterial);
         lowerDeck.position.y = 0.4;
 
-        const upperDeck = addHologramMesh(new RoundedBoxGeometry(4.45, 0.22, 2.75, 4, 0.2), solidMaterial);
-        upperDeck.position.set(-0.05, 0.65, 0);
+        // Rear wall with two integrated propulsion fans.
+        const fanWallMaterial = new THREE.MeshStandardMaterial({
+            color: 0x082a35,
+            emissive: 0x073b48,
+            emissiveIntensity: 1.15,
+            metalness: 0.66,
+            roughness: 0.3,
+            transparent: true,
+            opacity: 0.88
+        });
+        const fanWall = addHologramMesh(new RoundedBoxGeometry(0.3, 2.15, 3.15, 4, 0.14), fanWallMaterial);
+        fanWall.position.set(-1.78, 1.52, 0);
 
-        // Faceted, sloped cockpit at the front of the craft.
-        const cockpit = addHologramMesh(new THREE.CylinderGeometry(0.62, 1.08, 1.45, 4, 1), glassMaterial);
-        cockpit.rotation.y = Math.PI / 4;
-        cockpit.scale.set(1.42, 1, 0.86);
-        cockpit.position.set(0.9, 1.18, 0);
-
-        const cockpitNose = addHologramMesh(new THREE.ConeGeometry(0.94, 1.75, 4), solidMaterial);
-        cockpitNose.rotation.z = -Math.PI / 2;
-        cockpitNose.rotation.x = Math.PI / 4;
-        cockpitNose.scale.set(0.65, 1, 1.02);
-        cockpitNose.position.set(1.88, 0.78, 0);
-
-        // Two independent rear propulsion fans and their open support frame.
         const propellers = [];
         const createFan = (zPosition) => {
             const fanAssembly = new THREE.Group();
-            fanAssembly.position.set(-1.62, 1.62, zPosition);
+            fanAssembly.position.set(-1.57, 1.62, zPosition);
             hovercraft.add(fanAssembly);
 
             const fanRing = addHologramMesh(new THREE.TorusGeometry(0.72, 0.1, 12, 44), solidMaterial, fanAssembly);
@@ -157,31 +154,9 @@ if (stage && canvas) {
         createFan(-0.82);
         createFan(0.82);
 
-        const frameMaterial = new THREE.MeshStandardMaterial({
-            color: 0x61dcea,
-            emissive: 0x124955,
-            emissiveIntensity: 1.2,
-            metalness: 0.7,
-            roughness: 0.3
-        });
-        const addFrameBar = (length, position, rotation = 0) => {
-            const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, length, 8), frameMaterial);
-            bar.position.set(...position);
-            bar.rotation.z = rotation;
-            hovercraft.add(bar);
-        };
-        [-1.45, 0, 1.45].forEach((z) => addFrameBar(1.55, [-1.62, 1.05, z], -0.08));
-        const topBar = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.05, 8), frameMaterial);
-        topBar.rotation.x = Math.PI / 2;
-        topBar.position.set(-1.62, 2.3, 0);
-        hovercraft.add(topBar);
-
-        // Rear equipment block and front deck panel reinforce the prototype silhouette.
-        const equipment = addHologramMesh(new RoundedBoxGeometry(0.85, 0.5, 0.72, 3, 0.1), darkMaterial);
-        equipment.position.set(-0.72, 0.9, 0);
-        const frontPanel = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 2.25), accentMaterial);
-        frontPanel.position.set(2.15, 0.7, 0);
-        hovercraft.add(frontPanel);
+        // Centered rectangular equipment block, moved toward the front.
+        const equipment = addHologramMesh(new RoundedBoxGeometry(1.55, 0.52, 0.88, 4, 0.12), darkMaterial);
+        equipment.position.set(0.62, 0.82, 0);
 
         const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x28ddf1, transparent: true, opacity: 0.42 });
         [2.5, 3.15, 3.8].forEach((radius, index) => {
