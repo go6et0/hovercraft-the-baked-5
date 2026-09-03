@@ -97,66 +97,147 @@ if (stage && canvas) {
             return mesh;
         };
 
-        // Low rectangular cushion and deck, matching the team's small prototype.
-        const skirt = addHologramMesh(new RoundedBoxGeometry(5.45, 0.58, 3.55, 5, 0.34), darkMaterial);
-        skirt.position.y = -0.02;
+        // A single low hull and inflatable skirt, based on the team's prototype.
+        const skirt = addHologramMesh(new RoundedBoxGeometry(5.5, 0.58, 3.55, 7, 0.48), darkMaterial);
+        skirt.position.y = -0.04;
 
-        const lowerDeck = addHologramMesh(new RoundedBoxGeometry(5.1, 0.3, 3.22, 5, 0.27), solidMaterial);
-        lowerDeck.position.y = 0.4;
+        const deck = addHologramMesh(new RoundedBoxGeometry(5.18, 0.22, 3.23, 6, 0.35), solidMaterial);
+        deck.position.y = 0.36;
 
-        // Rear wall with two integrated propulsion fans.
-        const fanWallMaterial = new THREE.MeshStandardMaterial({
-            color: 0x082a35,
-            emissive: 0x073b48,
-            emissiveIntensity: 1.15,
-            metalness: 0.66,
-            roughness: 0.3,
+        const frameMaterial = new THREE.MeshStandardMaterial({
+            color: 0x249aae,
+            emissive: 0x074854,
+            emissiveIntensity: 1.25,
+            metalness: 0.58,
+            roughness: 0.34,
             transparent: true,
-            opacity: 0.88
+            opacity: 0.84
         });
-        const fanWall = addHologramMesh(new RoundedBoxGeometry(0.3, 2.15, 3.15, 4, 0.14), fanWallMaterial);
-        fanWall.position.set(-1.78, 1.52, 0);
+        const panelMaterial = new THREE.MeshStandardMaterial({
+            color: 0x07151e,
+            emissive: 0x102b36,
+            emissiveIntensity: 0.82,
+            metalness: 0.3,
+            roughness: 0.5,
+            transparent: true,
+            opacity: 0.92,
+            side: THREE.DoubleSide
+        });
 
         const propellers = [];
-        const createFan = (zPosition) => {
-            const fanAssembly = new THREE.Group();
-            fanAssembly.position.set(-1.57, 1.62, zPosition);
-            hovercraft.add(fanAssembly);
-
-            const fanRing = addHologramMesh(new THREE.TorusGeometry(0.72, 0.1, 12, 44), solidMaterial, fanAssembly);
-            fanRing.rotation.y = Math.PI / 2;
-
-            const innerRing = new THREE.Mesh(
-                new THREE.TorusGeometry(0.59, 0.018, 6, 40),
-                new THREE.MeshBasicMaterial({ color: 0x72f1ff, transparent: true, opacity: 0.55 })
-            );
-            innerRing.rotation.y = Math.PI / 2;
-            fanAssembly.add(innerRing);
-
-            const fanHub = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.32, 16), accentMaterial);
-            fanHub.rotation.z = Math.PI / 2;
-            fanAssembly.add(fanHub);
-
-            const propeller = new THREE.Group();
-            fanAssembly.add(propeller);
-            for (let index = 0; index < 5; index += 1) {
-                const pivot = new THREE.Group();
-                pivot.rotation.x = index * Math.PI * 0.4;
-                const blade = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.62, 0.18), accentMaterial);
-                blade.position.y = 0.31;
-                blade.rotation.x = 0.22;
-                pivot.add(blade);
-                propeller.add(pivot);
-            }
-            propellers.push(propeller);
+        const createBlade = (length, width, material) => {
+            const shape = new THREE.Shape();
+            shape.moveTo(0.02, -width * 0.28);
+            shape.quadraticCurveTo(length * 0.46, -width * 0.62, length, -width * 0.22);
+            shape.quadraticCurveTo(length * 1.06, width * 0.12, length * 0.72, width * 0.42);
+            shape.quadraticCurveTo(length * 0.25, width * 0.36, 0.02, width * 0.2);
+            const geometry = new THREE.ExtrudeGeometry(shape, {
+                depth: 0.07,
+                bevelEnabled: true,
+                bevelSegments: 2,
+                bevelSize: 0.025,
+                bevelThickness: 0.02
+            });
+            geometry.center();
+            const blade = new THREE.Mesh(geometry, material);
+            blade.position.x = length * 0.48;
+            return blade;
         };
 
-        createFan(-0.82);
-        createFan(0.82);
+        // Lift fan: recessed in the front half of the deck and pointing downward.
+        const liftFan = new THREE.Group();
+        liftFan.position.set(1.12, 0.53, 0);
+        hovercraft.add(liftFan);
 
-        // Centered rectangular equipment block, moved toward the front.
-        const equipment = addHologramMesh(new RoundedBoxGeometry(1.55, 0.52, 0.88, 4, 0.12), darkMaterial);
-        equipment.position.set(0.62, 0.82, 0);
+        const liftDuct = addHologramMesh(new THREE.TorusGeometry(0.92, 0.13, 14, 52), darkMaterial, liftFan);
+        liftDuct.rotation.x = Math.PI / 2;
+        const liftOpening = new THREE.Mesh(
+            new THREE.CircleGeometry(0.79, 48),
+            new THREE.MeshBasicMaterial({ color: 0x03141c, transparent: true, opacity: 0.86, side: THREE.DoubleSide })
+        );
+        liftOpening.rotation.x = -Math.PI / 2;
+        liftOpening.position.y = -0.07;
+        liftFan.add(liftOpening);
+
+        const liftPropeller = new THREE.Group();
+        liftPropeller.position.y = 0.06;
+        liftFan.add(liftPropeller);
+        for (let index = 0; index < 3; index += 1) {
+            const pivot = new THREE.Group();
+            pivot.rotation.y = index * Math.PI * 2 / 3;
+            const blade = createBlade(0.72, 0.34, accentMaterial);
+            blade.rotation.x = Math.PI / 2;
+            pivot.add(blade);
+            liftPropeller.add(pivot);
+        }
+        const liftHub = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.25, 18), accentMaterial);
+        liftHub.position.y = 0.08;
+        liftFan.add(liftHub);
+        propellers.push({ group: liftPropeller, axis: 'y', speed: -5.6 });
+
+        // Horizontal battery tray placed between the two fan systems.
+        const batteryTray = addHologramMesh(new RoundedBoxGeometry(1.35, 0.4, 0.9, 4, 0.1), panelMaterial);
+        batteryTray.position.set(-0.25, 0.67, 0);
+        const batteryRim = addHologramMesh(new RoundedBoxGeometry(1.52, 0.1, 1.06, 3, 0.06), frameMaterial);
+        batteryRim.position.set(-0.25, 0.52, 0);
+
+        // Foam-style rear frame holding one propulsion fan aimed behind the craft.
+        const rearFrame = new THREE.Group();
+        rearFrame.position.x = -1.55;
+        hovercraft.add(rearFrame);
+        const leftPost = addHologramMesh(new RoundedBoxGeometry(0.34, 2.12, 0.38, 3, 0.08), frameMaterial, rearFrame);
+        leftPost.position.set(0, 1.46, -1.02);
+        const rightPost = addHologramMesh(new RoundedBoxGeometry(0.34, 2.12, 0.38, 3, 0.08), frameMaterial, rearFrame);
+        rightPost.position.set(0, 1.46, 1.02);
+        const topBeam = addHologramMesh(new RoundedBoxGeometry(0.34, 0.38, 2.42, 3, 0.08), frameMaterial, rearFrame);
+        topBeam.position.set(0, 2.42, 0);
+
+        const rearFan = new THREE.Group();
+        rearFan.position.set(0.08, 1.5, 0);
+        rearFrame.add(rearFan);
+        const rearDuct = addHologramMesh(new THREE.TorusGeometry(0.74, 0.1, 14, 52), solidMaterial, rearFan);
+        rearDuct.rotation.y = Math.PI / 2;
+        const rearHub = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.36, 18), accentMaterial);
+        rearHub.rotation.z = Math.PI / 2;
+        rearFan.add(rearHub);
+
+        const rearPropeller = new THREE.Group();
+        rearFan.add(rearPropeller);
+        for (let index = 0; index < 3; index += 1) {
+            const pivot = new THREE.Group();
+            pivot.rotation.x = index * Math.PI * 2 / 3;
+            const blade = createBlade(0.64, 0.31, accentMaterial);
+            blade.rotation.y = Math.PI / 2;
+            pivot.add(blade);
+            rearPropeller.add(pivot);
+        }
+        propellers.push({ group: rearPropeller, axis: 'x', speed: 6.2 });
+
+        // Rudder canvas behind the propulsion fan, with a visible servo and linkage.
+        const rudderPivot = new THREE.Group();
+        rudderPivot.position.set(-2.08, 1.45, 0.34);
+        hovercraft.add(rudderPivot);
+        const rudderHinge = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 1.75, 12), accentMaterial);
+        rudderPivot.add(rudderHinge);
+        const rudder = addHologramMesh(new RoundedBoxGeometry(0.1, 1.7, 1.08, 3, 0.04), panelMaterial, rudderPivot);
+        rudder.position.z = 0.54;
+
+        const servo = addHologramMesh(new RoundedBoxGeometry(0.42, 0.3, 0.34, 3, 0.06), darkMaterial);
+        servo.position.set(-1.55, 0.62, 1.13);
+        const servoArm = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.07, 0.52), accentMaterial);
+        servoArm.position.set(-1.55, 0.79, 0.93);
+        hovercraft.add(servoArm);
+
+        const linkageStart = new THREE.Vector3(-1.55, 0.79, 1.17);
+        const linkageEnd = new THREE.Vector3(-2.07, 0.92, 0.82);
+        const linkageDirection = new THREE.Vector3().subVectors(linkageEnd, linkageStart);
+        const linkage = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.025, 0.025, linkageDirection.length(), 10),
+            accentMaterial
+        );
+        linkage.position.copy(linkageStart).add(linkageEnd).multiplyScalar(0.5);
+        linkage.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), linkageDirection.clone().normalize());
+        hovercraft.add(linkage);
 
         const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x28ddf1, transparent: true, opacity: 0.42 });
         [2.5, 3.15, 3.8].forEach((radius, index) => {
@@ -216,9 +297,10 @@ if (stage && canvas) {
             const elapsed = clock.getElapsedTime();
             hovercraft.position.y = Math.sin(elapsed * 1.25) * 0.08;
             hovercraft.rotation.z = Math.sin(elapsed * 0.62) * 0.018;
-            propellers.forEach((propeller, index) => {
-                propeller.rotation.x = elapsed * (index === 0 ? 5.2 : -5.2);
+            propellers.forEach(({ group, axis, speed }) => {
+                group.rotation[axis] = elapsed * speed;
             });
+            rudderPivot.rotation.y = Math.sin(elapsed * 0.72) * 0.18;
             particles.rotation.y = elapsed * 0.025;
             controls.update();
             renderer.render(scene, camera);
