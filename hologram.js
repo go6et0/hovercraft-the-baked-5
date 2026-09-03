@@ -97,11 +97,36 @@ if (stage && canvas) {
             return mesh;
         };
 
-        // A single low hull and inflatable skirt, based on the team's prototype.
-        const skirt = addHologramMesh(new RoundedBoxGeometry(5.5, 0.58, 3.55, 7, 0.48), darkMaterial);
+        const createHullGeometry = (length, width, height, noseRadius) => {
+            const halfLength = length / 2;
+            const halfWidth = width / 2;
+            const rearRadius = 0.34;
+            const shape = new THREE.Shape();
+            shape.moveTo(-halfLength, -halfWidth + rearRadius);
+            shape.quadraticCurveTo(-halfLength, -halfWidth, -halfLength + rearRadius, -halfWidth);
+            shape.lineTo(halfLength - noseRadius, -halfWidth);
+            shape.quadraticCurveTo(halfLength, -halfWidth, halfLength, 0);
+            shape.quadraticCurveTo(halfLength, halfWidth, halfLength - noseRadius, halfWidth);
+            shape.lineTo(-halfLength + rearRadius, halfWidth);
+            shape.quadraticCurveTo(-halfLength, halfWidth, -halfLength, halfWidth - rearRadius);
+            shape.closePath();
+            const geometry = new THREE.ExtrudeGeometry(shape, {
+                depth: height,
+                bevelEnabled: true,
+                bevelSegments: 3,
+                bevelSize: Math.min(0.1, height * 0.2),
+                bevelThickness: Math.min(0.08, height * 0.16)
+            });
+            geometry.rotateX(Math.PI / 2);
+            geometry.center();
+            return geometry;
+        };
+
+        // Low hull with a distinctly rounded front and a flatter rear edge.
+        const skirt = addHologramMesh(createHullGeometry(5.5, 3.55, 0.58, 1.45), darkMaterial);
         skirt.position.y = -0.04;
 
-        const deck = addHologramMesh(new RoundedBoxGeometry(5.18, 0.22, 3.23, 6, 0.35), solidMaterial);
+        const deck = addHologramMesh(createHullGeometry(5.18, 3.23, 0.22, 1.32), solidMaterial);
         deck.position.y = 0.36;
 
         const frameMaterial = new THREE.MeshStandardMaterial({
@@ -175,11 +200,11 @@ if (stage && canvas) {
         liftFan.add(liftHub);
         propellers.push({ group: liftPropeller, axis: 'y', speed: -5.6 });
 
-        // Horizontal battery tray placed between the two fan systems.
-        const batteryTray = addHologramMesh(new RoundedBoxGeometry(1.35, 0.4, 0.9, 4, 0.1), panelMaterial);
-        batteryTray.position.set(-0.25, 0.67, 0);
-        const batteryRim = addHologramMesh(new RoundedBoxGeometry(1.52, 0.1, 1.06, 3, 0.06), frameMaterial);
-        batteryRim.position.set(-0.25, 0.52, 0);
+        // Slim battery tray laid horizontally across the deck.
+        const batteryTray = addHologramMesh(new RoundedBoxGeometry(0.72, 0.2, 1.46, 4, 0.08), panelMaterial);
+        batteryTray.position.set(-0.2, 0.57, 0);
+        const batteryRim = addHologramMesh(new RoundedBoxGeometry(0.84, 0.07, 1.58, 3, 0.045), frameMaterial);
+        batteryRim.position.set(-0.2, 0.48, 0);
 
         // Foam-style rear frame holding one propulsion fan aimed behind the craft.
         const rearFrame = new THREE.Group();
@@ -213,14 +238,14 @@ if (stage && canvas) {
         }
         propellers.push({ group: rearPropeller, axis: 'x', speed: 6.2 });
 
-        // Rudder canvas behind the propulsion fan, with a visible servo and linkage.
+        // Rudder canvas projects backwards like a flag behind the propulsion fan.
         const rudderPivot = new THREE.Group();
-        rudderPivot.position.set(-2.08, 1.45, 0.34);
+        rudderPivot.position.set(-1.96, 1.45, 0.46);
         hovercraft.add(rudderPivot);
         const rudderHinge = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 1.75, 12), accentMaterial);
         rudderPivot.add(rudderHinge);
-        const rudder = addHologramMesh(new RoundedBoxGeometry(0.1, 1.7, 1.08, 3, 0.04), panelMaterial, rudderPivot);
-        rudder.position.z = 0.54;
+        const rudder = addHologramMesh(new RoundedBoxGeometry(1.28, 1.7, 0.1, 3, 0.04), panelMaterial, rudderPivot);
+        rudder.position.x = -0.64;
 
         const servo = addHologramMesh(new RoundedBoxGeometry(0.42, 0.3, 0.34, 3, 0.06), darkMaterial);
         servo.position.set(-1.55, 0.62, 1.13);
@@ -229,7 +254,7 @@ if (stage && canvas) {
         hovercraft.add(servoArm);
 
         const linkageStart = new THREE.Vector3(-1.55, 0.79, 1.17);
-        const linkageEnd = new THREE.Vector3(-2.07, 0.92, 0.82);
+        const linkageEnd = new THREE.Vector3(-1.96, 0.92, 0.48);
         const linkageDirection = new THREE.Vector3().subVectors(linkageEnd, linkageStart);
         const linkage = new THREE.Mesh(
             new THREE.CylinderGeometry(0.025, 0.025, linkageDirection.length(), 10),
