@@ -717,13 +717,19 @@ iframe {
     overflow: hidden;
 }
 
-.video-container iframe {
+.video-container iframe,
+.video-container video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    background: #241b13;
+}
+
+.video-container video {
+    object-fit: contain;
 }
 
 .video-item h3 {
