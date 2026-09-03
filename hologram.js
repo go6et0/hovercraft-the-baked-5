@@ -202,9 +202,9 @@ if (stage && canvas) {
 
         // Slim battery tray laid horizontally across the deck.
         const batteryTray = addHologramMesh(new RoundedBoxGeometry(0.72, 0.2, 1.46, 4, 0.08), panelMaterial);
-        batteryTray.position.set(-0.2, 0.57, 0);
+        batteryTray.position.set(-0.72, 0.57, 0);
         const batteryRim = addHologramMesh(new RoundedBoxGeometry(0.84, 0.07, 1.58, 3, 0.045), frameMaterial);
-        batteryRim.position.set(-0.2, 0.48, 0);
+        batteryRim.position.set(-0.72, 0.48, 0);
 
         // Foam-style rear frame holding one propulsion fan aimed behind the craft.
         const rearFrame = new THREE.Group();
@@ -240,7 +240,7 @@ if (stage && canvas) {
 
         // Rudder canvas projects backwards like a flag behind the propulsion fan.
         const rudderPivot = new THREE.Group();
-        rudderPivot.position.set(-1.96, 1.45, 0.46);
+        rudderPivot.position.set(-1.96, 1.45, 0);
         hovercraft.add(rudderPivot);
         const rudderHinge = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 1.75, 12), accentMaterial);
         rudderPivot.add(rudderHinge);
@@ -254,7 +254,7 @@ if (stage && canvas) {
         hovercraft.add(servoArm);
 
         const linkageStart = new THREE.Vector3(-1.55, 0.79, 1.17);
-        const linkageEnd = new THREE.Vector3(-1.96, 0.92, 0.48);
+        const linkageEnd = new THREE.Vector3(-1.96, 0.92, 0.02);
         const linkageDirection = new THREE.Vector3().subVectors(linkageEnd, linkageStart);
         const linkage = new THREE.Mesh(
             new THREE.CylinderGeometry(0.025, 0.025, linkageDirection.length(), 10),
